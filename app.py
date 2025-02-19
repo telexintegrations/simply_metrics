@@ -138,27 +138,39 @@ def notify():
 def get_integration_json():
     base_url = request.url_root.rstrip("/")
     return {
-        "data": {
-            "descriptions": {
-                "app_name": "simply_metrics",
-                "app_description": "Check for latency threshold and CPU usage of a flask web app",
-                "app_url": base_url,
-                "app_logo": "https://i.imgur.com/lZqvffp.png",
-                "background_color": "#fff"
-            },
-            "integration_category": "Monitoring & Logging",
-            "integration_type": "interval",
-            "key_features": [
-                "Check for latency request in seconds in the app, and return the metrics",
-                "Check for CPU usage percentage in the app, and return the metrics"
-            ],
-            "settings": [
-                {"label": "interval", "type": "text", "required": True, "default": "* * * * *"}
-            ],
-            "tick_url": f"{base_url}/tick",
-            "target_url": "https://ping.telex.im/v1/webhooks/01951965-f6ad-7ff0-9468-aba9ddc3bbf0"
-        }
-    }
+  "data": {
+    "date": {
+      "created_at": "2025-02-20",
+      "updated_at": "2025-02-20"
+    },
+    "descriptions": {
+      "app_name": "simply_metrics",
+      "app_description": "Check for latency threshold and CPU usage of a flask web app",
+      "app_logo": "https://i.imgur.com/lZqvffp.png",
+      "app_url": base_url,
+      "background_color": "#fff"
+    },
+    "is_active": True,
+    "integration_type": "interval",
+    "key_features": [
+      "\"Check for latency request in seconds in the app",
+      "and return the metrics\"",
+      "\"Check for CPU usage percentage in the app",
+      "and return the metrics\""
+    ],
+    "author": "Azeezat Omobolanle",
+    "settings": [
+      {
+        "label": "interval",
+        "type": "text",
+        "required": True,
+        "default": "3 * * * *"
+      }
+    ],
+    "target_url": "https://ping.telex.im/v1/webhooks/01951965-f6ad-7ff0-9468-aba9ddc3bbf0",
+    "tick_url": f"{base_url}tick"
+  }
+}
 
 
 ''' APScheduler for sending metrics (latency and cpu usage) notifications '''
