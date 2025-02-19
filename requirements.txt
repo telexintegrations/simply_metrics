@@ -1,0 +1,10 @@
+flask
+requests
+cors
+prometheus-flask-exporter
+psutil
+flask_cors
+apscheduler
+logging
+pytest
+gunicorn
