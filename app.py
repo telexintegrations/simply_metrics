@@ -4,7 +4,7 @@ An application that return the Request Latency and CPU usage
 
 # To log errors
 import logging
-from flask import Flask, g, Response, jsonify, request
+from flask import Flask, g, Response, jsonify, request, render_template
 from prometheus_flask_exporter import PrometheusMetrics
 import psutil  # To track CPU usage
 import time  # For request latency
@@ -61,7 +61,7 @@ def log_request_latency(response):
 #  Home Route
 @app.route('/about')
 def home():
-    return '<h1>Welcome to simply_metric home page!</h1>'
+    return render_template("about.html")
 
 @app.route('/metric')
 def return_metrics_data():
@@ -146,7 +146,7 @@ def get_integration_json():
       "app_description": "Check for latency threshold and CPU usage of a flask web app",
       "app_logo": "https://i.imgur.com/lZqvffp.png",
       "app_url": base_url,
-      "background_color": "#fff"
+      "background_color": "#f8bdf8"
     },
     "is_active": True,
     "integration_category": "Performance Monitoring",
