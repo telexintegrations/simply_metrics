@@ -59,7 +59,7 @@ def log_request_latency(response):
     return response
 
 #  Home Route
-@app.route('/')
+@app.route('/about')
 def home():
     return '<h1>Welcome to simply_metric home page!</h1>'
 
@@ -132,7 +132,7 @@ def notify():
         return {"error": "Internal Server Error", "message": str(e)}, 500
 
 
-@app.route("/integration.json")
+@app.route("/")
 def get_integration_json():
     base_url = request.url_root.rstrip("/")
     return {
