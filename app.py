@@ -8,13 +8,9 @@ from flask import Flask, g, Response, jsonify, request
 from prometheus_flask_exporter import PrometheusMetrics
 import psutil  # To track CPU usage
 import time  # For request latency
-from prometheus_client import CollectorRegistry, Histogram, Gauge, generate_latest # For creating a custome webpage that only returns selected response
+from prometheus_client import CollectorRegistry, Histogram, Gauge, generate_latest # For creating a custom webpage that only returns selected response
 import requests
 from flask_cors import CORS
-
-# For automating response notification
-# from apscheduler.schedulers.background import BackgroundScheduler
-# import atexit
 
 # Configure Logging
 logging.basicConfig(level=logging.INFO)
@@ -85,21 +81,21 @@ def send_notification():
     and send it as a notification to the Telex webhook.
     """
     
-    # Get the metrics data by calling the return_metrics function
-    metrics_response = return_metrics_data()
-    
-    # Build the payload with the metrics data as the message
-    payload = {
-        "event_name": "Simply-app latency and cpu_usage",
-        "message": metrics_response,
-        "status": "accepted",
-        "username": "Omobolanle"     
-    }
-    
-    # Telex webhook URL (replace with your actual URL)
-    url = "https://ping.telex.im/v1/webhooks/01951965-f6ad-7ff0-9468-aba9ddc3bbf0"
-    
     try:
+        
+        # Get the metrics data by calling the return_metrics function
+        metrics_response = return_metrics_data()
+    
+        # Build the payload with the metrics data as the message
+        payload = {
+            "event_name": "Simply-app latency and cpu_usage",
+            "message": metrics_response,
+            "status": "accepted",
+            "username": "Omobolanle"     
+        }
+    
+        # Telex webhook URL (replace with your actual URL)
+        url = "https://ping.telex.im/v1/webhooks/01951965-f6ad-7ff0-9468-aba9ddc3bbf0"
         # Send the POST request with the payload
         response = requests.post(
             url,
@@ -110,15 +106,15 @@ def send_notification():
             }
         )
         response.raise_for_status()
+        
+        # Log the full response for debugging
+        # logger.info(f"Webhook response status: {response.status_code}")
+        # logger.info(f"Webhook response body: {response.text}")
     
     except requests.exceptions.RequestException as e:
         # If there's an error sending the notification, return an error message
         logger.error(f"Request error: {e}")
         return {"message":"unable to send request", "error":str(e)}, 500
-    
-    except requests.exceptions.ConnectionError as e:
-        # If there's an error connecting to the webhook, return an error message
-        return {"error": "Unable to connect to the webhook", "message": e}, 500
     
     # Return a response indicating that the notification was sent
     return response.json()
@@ -127,14 +123,16 @@ def send_notification():
 def notify():
     try:
         result = send_notification()
-        return {"result": result}, 202
+        logger.info(f"Notification result: {result}")
+        return {"result": result}
+    
     except Exception as e:
         # If there's an error connecting to the webhook, return an error message
         logger.error(f"Error sending notification: {e}")
         return {"error": "Internal Server Error", "message": str(e)}, 500
 
 
-@app.get("/integration.json")
+@app.route("/integration.json")
 def get_integration_json():
     base_url = request.url_root.rstrip("/")
     return {
@@ -168,20 +166,9 @@ def get_integration_json():
       }
     ],
     "target_url": "https://ping.telex.im/v1/webhooks/01951965-f6ad-7ff0-9468-aba9ddc3bbf0",
-    "tick_url": f"{base_url}tick"
+    "tick_url": f"{base_url}/tick"
   }
 }
-
-
-''' APScheduler for sending metrics (latency and cpu usage) notifications '''
-# scheduler = BackgroundScheduler()
-
-# # Add the job to send metrics notifications at every 1 minute
-# scheduler.add_job(func=send_notification, trigger="interval", minutes=3)
-# scheduler.start()
-
-# # To ensure the scheduler stops when app exits
-# atexit.register(lambda: scheduler.shutdown())
 
 if __name__ == '__main__':
     app.run()
