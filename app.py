@@ -149,6 +149,7 @@ def get_integration_json():
       "background_color": "#fff"
     },
     "is_active": True,
+    "integration_category": "Performance Monitoring",
     "integration_type": "interval",
     "key_features": [
       "\"Check for latency request in seconds in the app",
