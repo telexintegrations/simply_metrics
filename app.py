@@ -124,7 +124,7 @@ def notify():
     try:
         result = send_notification()
         logger.info(f"Notification result: {result}")
-        return {"result": result}
+        return {"result": result}, 202
     
     except Exception as e:
         # If there's an error connecting to the webhook, return an error message

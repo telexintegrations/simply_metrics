@@ -11,7 +11,7 @@ def client():
         yield client
 
 def test_home(client):
-    response = client.get('/')
+    response = client.get('/about')
     assert response.status_code == 200
     assert b"Welcome to simply_metric home page!" in response.data
 
