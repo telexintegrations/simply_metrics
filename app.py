@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 app = Flask(__name__)
 
 # Enable CORS for cross-origin resource sharing
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Initialize Prometheus metrics
 metrics = PrometheusMetrics(app, path=None) # Disable the default endpoint to create a custom endpoint
@@ -146,7 +146,7 @@ def get_integration_json():
       "app_description": "Check for latency threshold and CPU usage of a flask web app",
       "app_logo": "https://i.imgur.com/lZqvffp.png",
       "app_url": base_url,
-      "background_color": "#f8bdf8"
+      "background_color": "#fff"
     },
     "is_active": True,
     "integration_category": "Performance Monitoring",
