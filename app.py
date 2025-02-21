@@ -75,7 +75,6 @@ def return_metrics_data():
 
 
 # Send a POST request to a webhook with the metrics data. 
-@app.route("/notify")
 def send_notification():
 
     """
@@ -93,7 +92,7 @@ def send_notification():
 
         url = "https://ping.telex.im/v1/webhooks/01952a22-7f63-7d0b-813c-1cc46ef09e5a"
         payload = {
-            "event_name": "string",
+            "event_name": "Latency and CPU_Usage Performance monitoring",
             "message": metrics_response,
             "status": "success",
             "username": "Omobolanle"
