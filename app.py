@@ -134,7 +134,7 @@ def notify():
 
 @app.route("/")
 def get_integration_json():
-    base_url = request.url_root.rstrip("/")
+    # base_url = request.url_root.rstrip("/")
     return {
   "data": {
     "date": {
@@ -145,7 +145,7 @@ def get_integration_json():
       "app_name": "simply_metrics",
       "app_description": "Check for latency threshold and CPU usage of a flask web app",
       "app_logo": "https://i.imgur.com/lZqvffp.png",
-      "app_url": base_url,
+      "app_url": "https://simply-metrics.onrender.com",
       "background_color": "#fff"
     },
     "is_active": True,
@@ -158,6 +158,7 @@ def get_integration_json():
       "and return the metrics\""
     ],
     "author": "Azeezat Omobolanle",
+    "website": "https://simply-metrics.onrender.com",
     "settings": [
       {
         "label": "interval",
@@ -166,8 +167,15 @@ def get_integration_json():
         "default": "*/3 * * * *"
       }
     ],
-    "target_url": "https://ping.telex.im/v1/webhooks/01952a22-7f63-7d0b-813c-1cc46ef09e5a",
-    "tick_url": f"{base_url}/tick"
+    "endpoints": [
+      {
+        "path": "/tick",
+        "method": "GET",
+        "description": "send the latest metrics for latency and cpu usage"
+      },
+    ],
+    "target_url": "",
+    "tick_url": f"https://simply-metrics.onrender.com/tick"
   }
 }
 
