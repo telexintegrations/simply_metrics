@@ -75,7 +75,9 @@ def return_metrics_data():
 
 
 # Send a POST request to a webhook with the metrics data. 
+@app.route("/notify")
 def send_notification():
+
     """
     Call the metric endpoint, extract its data,
     and send it as a notification to the Telex webhook.
@@ -87,25 +89,24 @@ def send_notification():
         metrics_response = return_metrics_data()
     
         # Build the payload with the metrics data as the message
+        
+
+        url = "https://ping.telex.im/v1/webhooks/01952a22-7f63-7d0b-813c-1cc46ef09e5a"
         payload = {
-            "event_name": "Simply-app latency and cpu_usage",
+            "event_name": "string",
             "message": metrics_response,
-            "status": "accepted",
-            "username": "Omobolanle"     
+            "status": "success",
+            "username": "Omobolanle"
         }
-    
-        # Telex webhook URL (replace with your actual URL)
-        url = "https://ping.telex.im/v1/webhooks/01951965-f6ad-7ff0-9468-aba9ddc3bbf0"
-        # Send the POST request with the payload
+
         response = requests.post(
-            url,
-            json=payload,
-            headers={
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-            }
+                url,
+                json=payload,
+                headers={
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                }
         )
-        response.raise_for_status()
         
         # Log the full response for debugging
         # logger.info(f"Webhook response status: {response.status_code}")
@@ -163,10 +164,10 @@ def get_integration_json():
         "label": "interval",
         "type": "text",
         "required": True,
-        "default": "3 * * * *"
+        "default": "*/3 * * * *"
       }
     ],
-    "target_url": "https://ping.telex.im/v1/webhooks/01951965-f6ad-7ff0-9468-aba9ddc3bbf0",
+    "target_url": "https://ping.telex.im/v1/webhooks/01952a22-7f63-7d0b-813c-1cc46ef09e5a",
     "tick_url": f"{base_url}/tick"
   }
 }
