@@ -37,3 +37,7 @@ http://127.0.0.1:5000
 
 get_integration_json function returns integration.json to integarte into telex app
 setting this will automate telex to trigger the /tick endpoint at the time interval set, and return response to the telex channel (target_url)
+
+![cpu_usage](https://github.com/user-attachments/assets/1274f749-19e0-4c3f-b592-8245d566a578)
+![channel_telex](https://github.com/user-attachments/assets/e368ea3a-31ed-4117-ab6e-56fdc5c695f7)
+
