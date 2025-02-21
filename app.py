@@ -134,50 +134,48 @@ def notify():
 
 @app.route("/")
 def get_integration_json():
-    # base_url = request.url_root.rstrip("/")
+    base_url = request.url_root.rstrip("/")
     return {
-  "data": {
-    "date": {
-      "created_at": "2025-02-20",
-      "updated_at": "2025-02-20"
-    },
-    "descriptions": {
-      "app_name": "simply_metrics",
-      "app_description": "Check for latency threshold and CPU usage of a flask web app",
-      "app_logo": "https://i.imgur.com/lZqvffp.png",
-      "app_url": "https://simply-metrics.onrender.com",
-      "background_color": "#fff"
-    },
-    "is_active": True,
-    "integration_category": "Performance Monitoring",
-    "integration_type": "interval",
-    "key_features": [
-      "\"Check for latency request in seconds in the app",
-      "and return the metrics\"",
-      "\"Check for CPU usage percentage in the app",
-      "and return the metrics\""
-    ],
-    "author": "Azeezat Omobolanle",
-    "website": "https://simply-metrics.onrender.com",
-    "settings": [
-      {
-        "label": "interval",
-        "type": "text",
-        "required": True,
-        "default": "*/3 * * * *"
-      }
-    ],
-    "endpoints": [
-      {
-        "path": "/tick",
-        "method": "GET",
-        "description": "send the latest metrics for latency and cpu usage"
-      },
-    ],
-    "target_url": "",
-    "tick_url": f"https://simply-metrics.onrender.com/tick"
-  }
-}
+        "data": {
+            "date": {
+                "created_at": "2025-02-20",
+                "updated_at": "2025-02-20"
+            },
+            "descriptions": {
+                "app_name": "simply_metrics",
+                "app_description": "Check for latency threshold and CPU usage of a flask web app",
+                "app_logo": "https://i.imgur.com/lZqvffp.png",
+                "app_url": base_url,
+                "background_color": "#fff"
+            },
+            "is_active": True,
+            "integration_category": "Performance Monitoring",
+            "integration_type": "interval",
+            "key_features": [
+                "Check for latency request in seconds and return the metrics",
+                "Check for CPU usage percentage and return the metrics"
+            ],
+            "author": "Azeezat Omobolanle",
+            "website": base_url,
+            "settings": [
+                {
+                    "label": "interval",
+                    "type": "text",
+                    "required": True,
+                    "default": "*/3 * * * *"
+                }
+            ],
+            "endpoints": [
+                {
+                    "path": "/tick",
+                    "method": "GET",
+                    "description": "Send the latest metrics for latency and CPU usage"
+                }
+            ],
+            "target_url": "",
+            "tick_url": f"{base_url}/tick"
+        }
+    }
 
 if __name__ == '__main__':
     app.run()
