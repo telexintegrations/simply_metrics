@@ -48,12 +48,13 @@ def log_request_latency(response):
     ''' Calculate and log request latency after each request and also CPU usage.'''
     
     try:
-        # Obaserve the latency for this request
-        latency = time.time() - g.start_time
-        latency_metric.observe(latency)
-    
+        if hasattr(g, "start_time"):  # Check if g.start_time exists
+            latency = time.time() - g.start_time
+            latency_metric.observe(latency)
+
         # Update CPU usage metric
         cpu_metric.set(psutil.cpu_percent(interval=1))  # Track CPU usage every second
+
     except Exception as e:
         logger.error(f"Error logging request metrics: {e}")
     return response
@@ -162,14 +163,7 @@ def get_integration_json():
                     "label": "interval",
                     "type": "text",
                     "required": True,
-                    "default": "*/3 * * * *"
-                }
-            ],
-            "endpoints": [
-                {
-                    "path": "/tick",
-                    "method": "GET",
-                    "description": "Send the latest metrics for latency and CPU usage"
+                    "default": "* * * * *"
                 }
             ],
             "target_url": "",
