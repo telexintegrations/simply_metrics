@@ -120,7 +120,7 @@ def send_notification():
     # Return a response indicating that the notification was sent
     return response.json()
 
-@app.route('/tick')
+@app.route('/tick',  methods=['GET', 'POST'])
 def notify():
     try:
         result = send_notification()
