@@ -163,7 +163,7 @@ def get_integration_json():
                     "label": "interval",
                     "type": "text",
                     "required": True,
-                    "default": "0 */4 * * *"
+                    "default": "*/3 * * * *"
                 }
             ],
             "target_url": "",
