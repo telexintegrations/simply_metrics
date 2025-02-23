@@ -87,3 +87,8 @@ The /tick endpoint accepts a POST request, when triggered by telex it returns th
 ![cpu_usage](https://github.com/user-attachments/assets/1274f749-19e0-4c3f-b592-8245d566a578)
 ![channel_telex](https://github.com/user-attachments/assets/e368ea3a-31ed-4117-ab6e-56fdc5c695f7)
 
+# To test the integration
+curl -X GET "https://simply-metric.onrender.com/tick"  // To trigger notifigation
+
+curl -X GET "https://simply-metric.onrender.com"  // To get the integration.json
+
