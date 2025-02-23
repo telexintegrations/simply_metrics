@@ -91,7 +91,7 @@ def send_notification():
         # Build the payload with the metrics data as the message
         
 
-        url = "https://ping.telex.im/v1/webhooks/01953314-f24f-786d-8aa3-60402b024113"
+        url = "https://ping.telex.im/v1/webhooks/019533b3-05ef-7c62-85ff-e12a75a67875"
         payload = {
             "event_name": "Latency and CPU_Usage Performance monitoring",
             "message": metrics_response,
